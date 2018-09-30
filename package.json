@@ -6,12 +6,18 @@
   "author": "Michael William Le Nguyen <michael@mail.ttp.codes>",
   "license": "MIT",
   "devDependencies": {
+    "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-route": "^3.2.4",
     "@types/sequelize": "^4.27.26",
     "tslint": "^5.11.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.1.1"
   },
   "dependencies": {
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-route": "^3.2.0",
     "sequelize": "^4.39.0",
     "sqlite3": "^4.0.2"
   }

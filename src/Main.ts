@@ -1,11 +1,19 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
+import render from 'koa-ejs'
 import route from 'koa-route'
+import moment from 'moment'
+import { join } from 'path'
 
 import FireAlarm from './database'
 
 const app = new Koa()
 app.use(bodyParser())
+render(app, {
+  layout: 'index',
+  root: join(__dirname, '..', 'views'),
+  viewExt: 'html'
+})
 
 const routes = {
   fireAlarms: {
@@ -30,9 +38,23 @@ const routes = {
       }
       ctx.body = response
     }
+  },
+  index: async (ctx: Koa.Context) => {
+    const date = await FireAlarm.max('date')
+    if (!date) {
+      ctx.body = {
+        error: 'No fire alarms documented yet.'
+      }
+    } else {
+      // Web development is actually horrible in its current state.
+      await (ctx as any).render('index', {
+        date: Math.abs(moment(date).diff(moment(), 'days')) + ' days'
+      })
+    }
   }
 }
 
+app.use(route.get('/', routes.index))
 app.use(route.get('/firealarms', routes.fireAlarms.get))
 app.use(route.post('/firealarms', routes.fireAlarms.create))
 

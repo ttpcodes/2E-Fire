@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Days Since the Last Fucking Fire Alarm</title>
+    <style>
+      .text {
+        font-size: 10vh;
+        text-align: center;
+      }
+      .days {
+        font-size: 20vh;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text">It has fucking been:</h1>
+    <h1 class="days" id="date"><%- date %></h1>
+    <h1 class="text">since the last fucking fire alarm</h1>
+    <script>
+      setInterval(function () {
+        const element = document.getElementById('date')
+        element.style.visibility = (element.style.visibility === '') ? 'hidden' : ''
+      }, 500)
+    </script>
+  </body>
+</html>

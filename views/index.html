@@ -7,15 +7,32 @@
         text-align: center;
       }
       .days {
-        font-size: 20vh;
+        font-size: 40vh;
         text-align: center;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 95%;
+      }
+      h1 {
+        margin: 0px;
       }
     </style>
   </head>
   <body>
-    <h1 class="text">It has fucking been:</h1>
-    <h1 class="days" id="date"><%- date %></h1>
-    <h1 class="text">since the last fucking fire alarm</h1>
+    <div>
+      <h1 class="text">It has fucking been:</h1>
+      <h1 class="days" id="date"><%- date %></h1>
+      <h1 class="text">since the last fucking fire alarm</h1>
+    </div>
+    <div>
+      <p>
+        Stupid project created by professional procrastinator Michael William Le Nguyen (ttpcodes).<br>
+        Project is on <a href="https://gitlab.com/ttpcodes/2E-Fire">GitLab</a>. Taking PRs for non-shitty CSS.
+      </p>
+    </div>
     <script>
       setInterval(function () {
         const element = document.getElementById('date')

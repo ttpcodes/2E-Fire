@@ -1,0 +1,13 @@
+{
+  "name": "2E-Fire",
+  "version": "0.0.1",
+  "description": "Days since the last fire alarm at Next House.",
+  "main": "index.js",
+  "author": "Michael William Le Nguyen <michael@mail.ttp.codes>",
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^5.11.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.1.1"
+  }
+}

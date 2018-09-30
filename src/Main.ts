@@ -3,6 +3,7 @@ import bodyParser from 'koa-bodyparser'
 import render from 'koa-ejs'
 import route from 'koa-route'
 import moment from 'moment'
+import { readFile } from 'mz/fs'
 import { join } from 'path'
 
 import FireAlarm from './database'
@@ -15,16 +16,52 @@ render(app, {
   viewExt: 'html'
 })
 
+// Load authentication token for authenticating incoming requests.
+let token = ''
+const PATH = process.env.path || join(__dirname, '..', 'data', 'config.json')
+readFile(PATH, 'utf8').then((data) => {
+  let config = null
+  try {
+    config = JSON.parse(data)
+    token = config.token
+  } catch (err) {
+    throw err
+  }
+}).catch((err) => {
+  throw err
+})
+
 const routes = {
   fireAlarms: {
     create: async (ctx: Koa.Context) => {
-      const request = ctx.request.body
-      const alarm = await FireAlarm.create({
-        date: (request as any).date
-      })
-      ctx.body = {
-        date: (alarm as any).get('date'),
-        id: (alarm as any).get('id')
+      const key = ctx.header.authorization
+      const date = (ctx.request.body as any).date
+      if (!key) {
+        ctx.body = {
+          error: 'No authentication token provided.'
+        }
+      } else if (key !== 'Bearer ' + token) {
+        ctx.body = {
+          error: 'Incorrect authentication token provided.'
+        }
+      } else if (!date) {
+        ctx.body = {
+          error: 'No date provided.'
+        }
+      } else {
+        if (isNaN(new Date(date).getDate())) {
+          ctx.body = {
+            error: 'Invalid date provided.'
+          }
+        } else {
+          const alarm = await FireAlarm.create({
+            date
+          })
+          ctx.body = {
+            date: (alarm as any).get('date'),
+            id: (alarm as any).get('id')
+          }
+        }
       }
     },
     get: async (ctx: Koa.Context) => {

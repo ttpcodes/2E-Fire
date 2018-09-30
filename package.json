@@ -2,7 +2,7 @@
   "name": "2E-Fire",
   "version": "0.0.1",
   "description": "Days since the last fire alarm at Next House.",
-  "main": "index.js",
+  "main": "src/Main.js",
   "author": "Michael William Le Nguyen <michael@mail.ttp.codes>",
   "license": "MIT",
   "devDependencies": {
@@ -24,5 +24,9 @@
     "mz": "^2.7.0",
     "sequelize": "^4.39.0",
     "sqlite3": "^4.0.2"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "start": "node dist/Main.js"
   }
 }

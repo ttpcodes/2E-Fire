@@ -6,8 +6,13 @@
   "author": "Michael William Le Nguyen <michael@mail.ttp.codes>",
   "license": "MIT",
   "devDependencies": {
+    "@types/sequelize": "^4.27.26",
     "tslint": "^5.11.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "sequelize": "^4.39.0",
+    "sqlite3": "^4.0.2"
   }
 }

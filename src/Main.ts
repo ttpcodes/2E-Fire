@@ -16,13 +16,17 @@ render(app, {
   viewExt: 'html'
 })
 
-// Load authentication token for authenticating incoming requests.
+// Load various configuration parameters.
+let footer = ''
+let header = ''
 let token = ''
 const PATH = process.env.path || join(__dirname, '..', 'data', 'config.json')
 readFile(PATH, 'utf8').then((data) => {
   let config = null
   try {
     config = JSON.parse(data)
+    footer = config.footer
+    header = config.header
     token = config.token
   } catch (err) {
     throw err
@@ -85,7 +89,9 @@ const routes = {
     } else {
       // Web development is actually horrible in its current state.
       await (ctx as any).render('index', {
-        date: Math.abs(moment(date).diff(moment(), 'days')) + ' days'
+        date: Math.abs(moment(date).diff(moment(), 'days')) + ' days',
+        footer,
+        header
       })
     }
   }
